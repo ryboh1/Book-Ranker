@@ -1,0 +1,20 @@
+Create a books i want to read system:
+
+Visual Elements:
+    - input books via a form
+    - a coulmn for name 
+    - a column for author
+    - a column for deleting books
+    - a column for genre
+    - a column to RANK books from 1-10
+    based on necessity to read the book
+
+
+
+functions:
+    - submit books via the form 
+    - I should be able to delete rows
+    - the books should be ordered by RANK
+    - form data should reset on every submission made
+
+
