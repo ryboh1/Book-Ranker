@@ -2,4 +2,17 @@
 
 
 1. Create a form with each column name in forms.js
+
+
+form content:
+    1. label what is the name of the book
+    2. text input
+    3. author of book
+    4. text input
+    5. genre
+    6. selection
+    7. rank from 1-10
+    8. input
+
+
 2. 
