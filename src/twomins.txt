@@ -1,6 +1,8 @@
 2mins:
-
-    understand and create flex
+    -update state
+    - make code cleaner
+    - make architecture cleaner
+    - pass down 
 
 40mins:
-    edx course
+    - finish book 

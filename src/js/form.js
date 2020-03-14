@@ -7,7 +7,9 @@ let genres = [[0,1,2,3],["productivity", "fiction", "self-help"
 
 function TextInput(props){
     return(
-        <input />
+        <input type = "text" 
+            onChange = {(event) => props.handleChange(event, props.formField) }
+         />
     )
 }
 
@@ -22,7 +24,8 @@ function Selection(props){
     })
 
     return (
-        <select>
+        <select 
+        onChange={(event) => props.handleChange(event,props.formField)}>
             {theOptions}
         </select>  
     )
@@ -30,18 +33,33 @@ function Selection(props){
 
 function Form(props){
 
+    //This form inputs data by updating the state
     return(
-        <form action="">
+        <form>
+
             <label>Book Name:</label>
-            <TextInput />
+            <TextInput 
+            handleChange = {props.handleChange}
+            formField = "name" />
+
             <label>Author:</label>
-            <TextInput />
+            <TextInput
+            handleChange = {props.handleChange} 
+            formField = "author"/>
+
             <label>Genres:</label>
-            <Selection theOptions={genres}/>
+            <Selection 
+            theOptions={genres}
+            handleChange = {props.handleChange}
+            formField="genre"/>
+
             <label>Rank:</label>
-            <input type="number" max="10" min="0"/>
+            <input type="number" max="10" min="0"
+            onChange = {(event) => props.handleChange(event, "rank")}/>
+
+            <input type="reset" value="Submit" onClick = {() => props.handleSubmit()}/>
         </form>
     )
 }
 
-export default Form;
+export default Form
