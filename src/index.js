@@ -60,7 +60,7 @@ class App extends React.Component{
 
                 <Table 
                 tableInformation = {this.state.information}
-                tableIDs = {this.state.tableIDs}/>
+                theIDs = {this.state.information.id}/>
             </div>            
         )
     }
