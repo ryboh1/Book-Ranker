@@ -1,5 +1,7 @@
 import React from 'react'
 
+import {createsRows,sortRows} from "./helpers"
+
 let tableColumns = [
     [0,1,2,3,4], 
     ["Remove","Name", "Author", "Genre", "Rank"]
@@ -21,37 +23,25 @@ function ARow(props){
     return(
         <tr>
             <td><button>x</button></td>
-            <td>{theInformation.name[theID]}</td>
-            <td>{theInformation.author[theID]}</td>
-            <td>{theInformation.genre[theID]}</td>
+            <td>{theInformation[theID].name}</td>
+            <td>{theInformation[theID].author}</td>
+            <td>{theInformation[theID].genre}</td>
             <td>
-                <button>-</button>
-                {theInformation.rank[theID]}
-                <button>+</button>
+                {theInformation[theID].rank}
             </td>
         </tr>
     )
 }
 
-function Rows(props){
-    
-    let theIDs = props.theIDs
+function TheRows(props){
 
-    let theRows = []
-    for(let i = 0; i < theIDs.length; i++ ){
-        theRows.push(<ARow 
-        key = {i}
-        tableInformation = {props.tableInformation}
-        theID = {theIDs[i]}
-        /> )
-    }    
-    
-    return theRows    
+    let theRows = createsRows(props.tableInformation,ARow)      
+    return theRows
 }
 
 function Table(props){
     return(
-        <table>
+        <table id="myTable">
             <thead>
                 <tr>
                     <TableHead tableColumns={tableColumns}/>
@@ -59,9 +49,8 @@ function Table(props){
             </thead>
 
             <tbody>
-                <Rows 
-                tableInformation = {props.tableInformation} 
-                theIDs = {props.theIDs} />            
+                <TheRows 
+                tableInformation = {props.tableInformation}/>
             </tbody>
 
         </table>

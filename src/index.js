@@ -6,7 +6,7 @@ import Form from "./js/form"
 import Table from "./js/table"
 
 //Modules
-import {assignsID, getsInformation,updatesInformationAndID} from "./js/helpers"
+import {getsNewInformation, createsObject} from "./js/helpers"
 
 //CSS
 import "./css/index.css"
@@ -19,7 +19,7 @@ class App extends React.Component{
     constructor(props){
         super(props)
         this.state = {name:"", author:"", genre:"productivity", rank:"",
-                    information:{id:[],name:[], author:[], genre:[], rank:[]} 
+                    information:[] 
                 }
 
         this.handleChange = this.handleChange.bind(this)
@@ -35,19 +35,19 @@ class App extends React.Component{
     }
 
     handleSubmit(){
-        let theKeys = ["name", "author", "genre", "rank"]
-        let id = this.state.information.id
+        //creates a new information object and appends it to 
+        //the state.information array
+        let theKeys = ["id","name", "author", "genre", "rank"]
+        let newID = this.state.information.length
+        let newInformation = getsNewInformation(theKeys, this.state)
+        newInformation.unshift(newID)
 
-        let newID = assignsID(id)
-        let currentIDs = this.state.information.id.slice()
-        currentIDs.push(newID)
-        let currentInformation = getsInformation(theKeys,this.state)        
-        let newInput = [currentIDs, currentInformation]
-
-        updatesInformationAndID(newInput,this)
+        let newObject= createsObject(theKeys,newInformation)
+        let currentInformation = this.state.information.slice()
+        currentInformation.push(newObject)
 
         this.setState( () => {
-            return {name:"", author:"", genre:"productivity", rank:"" }
+            return {information:currentInformation}
         })
     }
 
@@ -60,7 +60,7 @@ class App extends React.Component{
 
                 <Table 
                 tableInformation = {this.state.information}
-                theIDs = {this.state.information.id}/>
+                />
             </div>            
         )
     }

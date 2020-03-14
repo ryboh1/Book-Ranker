@@ -1,3 +1,0 @@
-1. display information based on score
-2. remove information and rearrange based on score
-3. update score and rearrange based on score

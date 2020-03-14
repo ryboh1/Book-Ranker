@@ -1,49 +1,48 @@
-function assignsID(theID){
+import React from 'react'
 
-    let theNewID
+// index js
 
-    if(theID.length === 0){
-        theNewID = 0
-    }
-    else{
-        theNewID = theID[theID.length - 1] + 1
-    }
-
-    return theNewID
-}
-
-function getsInformation(theKeys, state){
+function getsNewInformation(theKeys,theState){
     
-    let currentInformation = []
     let newInformation = []
-
-    theKeys.map( (key) => {
-        newInformation.push( state[key].slice() ) 
-        currentInformation.push( state.information[key].slice() )
-    })
-
-    for(let i = 0; i < currentInformation.length; i++){
-        currentInformation[i].push(newInformation[i])
+    for(let i = 1; i < theKeys.length; i++){
+       newInformation.push(theState[theKeys[i]]) 
     }
 
-    return currentInformation
-
+    return newInformation
 }
 
-function updatesInformationAndID(theNewInput, state){
+function createsObject(theKeys, theValues){
+    
+    let result = {};
+    theKeys.forEach((key, i) => result[key] = theValues[i]);
 
-    let theCurrentIDs = theNewInput[0]
-    let theCurrentInformation = theNewInput[1]
-
-    state.setState( (previousState) => {
-        return {information:{
-            id:theCurrentIDs,
-            name: theCurrentInformation[0],
-            author:theCurrentInformation[1],
-            genre:theCurrentInformation[2],
-            rank:theCurrentInformation[3]
-        }}
-    })
+    return result
 }
 
-export {assignsID, getsInformation,updatesInformationAndID }
+//table
+function createsRows(tableInformation, ARow){
+    
+    if(tableInformation.length === 0){
+        return null
+    }
+
+    let theRows = []
+
+    for(let i = 0; i < tableInformation.length; i++ ){
+        let theID = tableInformation[i]["id"]
+
+        theRows.push(
+        <ARow 
+            key = {theID}
+            tableInformation = {tableInformation}
+            theID = {theID}
+        />)
+    }    
+    
+    return theRows    
+}
+
+
+
+export {getsNewInformation,createsObject,createsRows}
