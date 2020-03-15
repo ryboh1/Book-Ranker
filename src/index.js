@@ -6,8 +6,7 @@ import Form from "./js/form"
 import Table from "./js/table"
 
 //Modules
-import {getsNewInformation, createsObject} from "./js/helpers"
-
+import {updateInformation, updateIDs, sortInformation, rearrangeArray} from "./js/helpers"
 //CSS
 import "./css/index.css"
 import "./css/bootstrap-4.4.1-dist/css/bootstrap.min.css"
@@ -18,12 +17,14 @@ class App extends React.Component{
 
     constructor(props){
         super(props)
-        this.state = {name:"", author:"", genre:"productivity", rank:"",
+        this.state = {name:"", author:"", genre:"productivity", rank:"0",
                     information:[] 
                 }
 
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.removeInformation = this.removeInformation.bind(this)
+        this.updateRank = this.updateRank.bind(this)
     }
 
     handleChange(event,formField)
@@ -35,19 +36,59 @@ class App extends React.Component{
     }
 
     handleSubmit(){
-        //creates a new information object and appends it to 
-        //the state.information array
+
+        let isText = isNaN(this.state.rank)
+        let rank = this.state.rank
+        if(isText || rank < 0 || rank > 10 ){
+            return alert("You Have Entered Your Rank Incorrectly ")
+        }
+
         let theKeys = ["id","name", "author", "genre", "rank"]
         let newID = this.state.information.length
-        let newInformation = getsNewInformation(theKeys, this.state)
-        newInformation.unshift(newID)
-
-        let newObject= createsObject(theKeys,newInformation)
-        let currentInformation = this.state.information.slice()
-        currentInformation.push(newObject)
+       
+        let updatedInformation = updateInformation(theKeys, newID, this)
 
         this.setState( () => {
-            return {information:currentInformation}
+            return {information:updatedInformation}
+        })
+    }
+
+    removeInformation(rowNumber){
+        let currentInformation = this.state.information.slice()       
+        currentInformation.splice(rowNumber, 1) 
+        currentInformation = updateIDs(currentInformation)
+
+        this.setState( () => {
+            return { information: currentInformation}
+        })
+        
+    }
+
+    updateRank(theEvent, rowNumber){
+        let sign = theEvent.target.innerHTML
+        let theInformation = this.state.information.slice()
+        let currentRank = theInformation[rowNumber]["rank"]
+        
+        if(sign === "+"){
+           sign = 1 
+        }
+        else{
+            sign = -1
+        }
+
+        let updatedRank = sign + parseInt(currentRank)    
+       
+        if(updatedRank > 10 || updatedRank < 0){
+            return
+        }
+
+        theInformation[rowNumber]["rank"] = updatedRank
+        let sortedArray = sortInformation(theInformation)
+        let sortedInformation = rearrangeArray(theInformation,sortedArray)
+        let finalInformation = updateIDs(sortedInformation)
+
+        this.setState( (previousState) => {
+            return {information:finalInformation}
         })
     }
 
@@ -60,6 +101,8 @@ class App extends React.Component{
 
                 <Table 
                 tableInformation = {this.state.information}
+                removeInformation = {this.removeInformation}
+                updateRank = {this.updateRank}
                 />
             </div>            
         )

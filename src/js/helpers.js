@@ -1,7 +1,5 @@
 import React from 'react'
 
-// index js
-
 function getsNewInformation(theKeys,theState){
     
     let newInformation = []
@@ -20,29 +18,77 @@ function createsObject(theKeys, theValues){
     return result
 }
 
-//table
-function createsRows(tableInformation, ARow){
+function sortInformation(tableInformation){
     
     if(tableInformation.length === 0){
         return null
     }
 
-    let theRows = []
+    /*Sorts info by
+    storing each id and rank then sorting the array based on 
+    highest rank and returns the ids in sorted order*/
 
-    for(let i = 0; i < tableInformation.length; i++ ){
-        let theID = tableInformation[i]["id"]
+    let sortable = []
+    for(let i = 0; i < tableInformation.length; i++){
+        
+        let id = tableInformation[i]["id"]
+        let rating = parseInt(tableInformation[i]["rank"])
+        sortable.push( [rating, id] )
+    }
 
-        theRows.push(
-        <ARow 
-            key = {theID}
-            tableInformation = {tableInformation}
-            theID = {theID}
-        />)
-    }    
-    
-    return theRows    
+    sortable.sort( (a,b) =>{
+        return b[0] - a[0]
+    })
+
+    let sortedOrder = []
+    for(let i = 0; i < sortable.length; i++){
+        sortedOrder.push(sortable[i][1])
+    }
+
+    return sortedOrder
+}
+
+function rearrangeArray(theArray, theOrder){
+
+    let theSortedArray = []
+    theOrder.map( (position) => {
+        theSortedArray.push(theArray[position])
+    })
+
+    return theSortedArray
+}
+
+function updateIDs(theArray){
+
+    for(let i = 0; i < theArray.length; i++){
+        theArray[i]["id"] = i
+    }
+
+    return theArray
+}
+
+function resetOldInformation(aThis){
+
+    aThis.setState( () => {
+        return {name:"", author:"", genre:"productivity", rank:"0"}
+    })
+}
+
+function updateInformation(theKeys, newID,aThis){
+
+    let newInformation = getsNewInformation(theKeys, aThis.state)
+    newInformation.unshift(newID)
+    let newObject = createsObject(theKeys,newInformation)
+    let currentInformation = aThis.state.information.slice()
+    currentInformation.push(newObject)   
+    let order = sortInformation(currentInformation)
+    let sortedInformation = rearrangeArray(currentInformation, order)
+
+
+    let updatedInformation = updateIDs(sortedInformation)
+    resetOldInformation(aThis)
+    return updatedInformation
 }
 
 
-
-export {getsNewInformation,createsObject,createsRows}
+export {updateInformation, updateIDs, sortInformation, rearrangeArray}

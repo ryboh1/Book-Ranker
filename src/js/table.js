@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {createsRows,sortRows} from "./helpers"
+import {createsRows} from "./helper-table"
 
 let tableColumns = [
     [0,1,2,3,4], 
@@ -17,26 +17,23 @@ function TableHead(props){
     return theTableHeads
 }
 
+
 function ARow(props){
     let theInformation = props.tableInformation
-    let theID = props.theID
+    let theRowNumber = props.theRowNumber
     return(
         <tr>
-            <td><button>x</button></td>
-            <td>{theInformation[theID].name}</td>
-            <td>{theInformation[theID].author}</td>
-            <td>{theInformation[theID].genre}</td>
+            <td><button onClick = {() => props.removeInformation(theRowNumber)}>x</button></td>
+            <td>{theInformation[theRowNumber].name}</td>
+            <td>{theInformation[theRowNumber].author}</td>
+            <td>{theInformation[theRowNumber].genre}</td>
             <td>
-                {theInformation[theID].rank}
+                <button onClick = {(event) => props.updateRank(event, theRowNumber)}>+</button>
+                {theInformation[theRowNumber].rank}
+                <button onClick = {(event) => props.updateRank(event, theRowNumber)}>-</button>
             </td>
         </tr>
     )
-}
-
-function TheRows(props){
-
-    let theRows = createsRows(props.tableInformation,ARow)      
-    return theRows
 }
 
 function Table(props){
@@ -49,8 +46,11 @@ function Table(props){
             </thead>
 
             <tbody>
-                <TheRows 
-                tableInformation = {props.tableInformation}/>
+                {createsRows(
+                    props.tableInformation, 
+                    ARow,
+                    props.removeInformation,
+                    props.updateRank)}
             </tbody>
 
         </table>

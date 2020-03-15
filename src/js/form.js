@@ -54,7 +54,7 @@ function Form(props){
             formField="genre"/>
 
             <label>Rank:</label>
-            <input type="number" max="10" min="0"
+            <input type="number" max="10" min="0" required
             onChange = {(event) => props.handleChange(event, "rank")}/>
 
             <input type="reset" value="Submit" onClick = {() => props.handleSubmit()}/>
