@@ -1,8 +1,10 @@
 2mins:
-    -update state
-    - make code cleaner
-    - make architecture cleaner
-    - pass down 
+    -Come up with 3 quick ideas for the front of data kraken
 
 40mins:
-    - finish book 
+    - Come up with ideas of what data to show to a user based on there
+    ip address and how to display it 
+    
+    - make 3 first looks for the meeting 
+    then 
+    - produce the data visualisation today !

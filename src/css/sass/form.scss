@@ -1,0 +1,48 @@
+$tenSpace:10px;
+$inputSize:400px;
+
+.root{
+    margin-top:10px;
+}
+
+.row{
+    margin-top:10px;
+}
+
+.form{
+    background-image:linear-gradient(#B94B4B, #E25E5E) ;
+    height:100vh;
+    margin-top:0;
+
+
+    input{
+        max-width: $inputSize;
+        margin:auto;
+        margin-top:10px;
+    }
+
+    select{
+        max-width: $inputSize;
+        margin:auto;
+        margin-top: 10px;
+    }
+
+    input[type=reset]{
+        color:white;
+        background-image:linear-gradient(#e1872a,#FAAD5D);
+        width:200px;
+        border:none;
+        border-radius: 5%;
+        margin:auto;
+        margin-top:20px;  
+        font-weight: bold;
+    }
+}
+
+
+
+@media (max-width:768px){
+    .form{
+        height:70vh;
+    }
+}

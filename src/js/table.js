@@ -4,7 +4,7 @@ import {createsRows} from "./helper-table"
 
 let tableColumns = [
     [0,1,2,3,4], 
-    ["Remove","Name", "Author", "Genre", "Rank"]
+    ["","Name", "Author", "Genre", "Rank"]
 ]
 
 function TableHead(props){
@@ -23,14 +23,14 @@ function ARow(props){
     let theRowNumber = props.theRowNumber
     return(
         <tr>
-            <td><button onClick = {() => props.removeInformation(theRowNumber)}>x</button></td>
+            <td><button className="btn btn-danger" onClick = {() => props.removeInformation(theRowNumber)}>x</button></td>
             <td>{theInformation[theRowNumber].name}</td>
             <td>{theInformation[theRowNumber].author}</td>
             <td>{theInformation[theRowNumber].genre}</td>
             <td>
-                <button onClick = {(event) => props.updateRank(event, theRowNumber)}>+</button>
+                <button className="btn btn-warning" onClick = {(event) => props.updateRank(event, theRowNumber)}>-</button>
                 {theInformation[theRowNumber].rank}
-                <button onClick = {(event) => props.updateRank(event, theRowNumber)}>-</button>
+                <button className="btn btn-warning" onClick = {(event) => props.updateRank(event, theRowNumber)}>+</button>
             </td>
         </tr>
     )
@@ -38,7 +38,7 @@ function ARow(props){
 
 function Table(props){
     return(
-        <table id="myTable">
+        <table id="myTable" className="table-info">
             <thead>
                 <tr>
                     <TableHead tableColumns={tableColumns}/>

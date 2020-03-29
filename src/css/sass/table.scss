@@ -1,0 +1,17 @@
+.table{
+    background-color:wheat;
+    height:100vh;
+
+    table{
+        margin:5vh auto;
+
+        thead{
+            text-align: center;
+        }
+
+        button.btn-warning{
+            margin-right:10px;
+            margin-left: 10px;
+        }
+    }
+}

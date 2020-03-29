@@ -5,10 +5,11 @@ import ReactDOM from 'react-dom'
 import Form from "./js/form"
 import Table from "./js/table"
 
-//Modules
+//Javascript Modules
 import {updateInformation, updateIDs, sortInformation, rearrangeArray} from "./js/helpers"
+
 //CSS
-import "./css/index.css"
+import "./css/style.css"
 import "./css/bootstrap-4.4.1-dist/css/bootstrap.min.css"
 
 const theRoot = document.getElementById("root")
@@ -94,16 +95,22 @@ class App extends React.Component{
 
     render(){
         return(
-            <div>
-                <Form  
-                handleChange = {this.handleChange}
-                handleSubmit = {this.handleSubmit}/>
-
-                <Table 
-                tableInformation = {this.state.information}
-                removeInformation = {this.removeInformation}
-                updateRank = {this.updateRank}
-                />
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="col-md-5 form">
+                        <h3 id="title">To Read List</h3>
+                        <Form  
+                            handleChange = {this.handleChange}
+                            handleSubmit = {this.handleSubmit}/>
+                    </div>
+                    <div className="col-md-7 table">
+                        <Table 
+                            tableInformation = {this.state.information}
+                            removeInformation = {this.removeInformation}
+                            updateRank = {this.updateRank}
+                    />
+                    </div>
+                </div>
             </div>            
         )
     }

@@ -7,7 +7,10 @@ let genres = [[0,1,2,3],["productivity", "fiction", "self-help"
 
 function TextInput(props){
     return(
-        <input type = "text" 
+        <input
+            className="form-control" 
+            type = "text" 
+            placeholder = {props.placeholder}
             onChange = {(event) => props.handleChange(event, props.formField) }
          />
     )
@@ -25,7 +28,9 @@ function Selection(props){
 
     return (
         <select 
+        className="form-control" 
         onChange={(event) => props.handleChange(event,props.formField)}>
+            <option selected="true" disabled>{props.label}</option>
             {theOptions}
         </select>  
     )
@@ -35,29 +40,39 @@ function Form(props){
 
     //This form inputs data by updating the state
     return(
-        <form>
+        <form className="form-group">
 
-            <label>Book Name:</label>
             <TextInput 
             handleChange = {props.handleChange}
-            formField = "name" />
+            formField = "name" 
+            placeholder = "Title"
+            />
 
-            <label>Author:</label>
             <TextInput
             handleChange = {props.handleChange} 
-            formField = "author"/>
+            formField = "author"
+            placeholder = "Author"
+            />
 
-            <label>Genres:</label>
+            
             <Selection 
             theOptions={genres}
             handleChange = {props.handleChange}
-            formField="genre"/>
+            formField="genre"
+            label = "Genre"
+            />
 
-            <label>Rank:</label>
-            <input type="number" max="10" min="0" required
-            onChange = {(event) => props.handleChange(event, "rank")}/>
+            <input
+            className="form-control" 
+            type="number" max="10" min="0" 
+            placeholder = "Rank from 1 - 10"
+            required
+            onChange = {(event) => props.handleChange(event, "rank")}
+            />
 
-            <input type="reset" value="Submit" onClick = {() => props.handleSubmit()}/>
+            <input 
+            className="form-control"
+            type="reset" value="Submit" onClick = {() => props.handleSubmit()}/>
         </form>
     )
 }
